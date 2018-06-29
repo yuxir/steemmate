@@ -56,6 +56,28 @@ async function find_last_record(user, numbers) {
   return result;
 }
 
+// based on operation, construct html output
+function operation_html(operation) {
+  if(operation[0]=='vote')                             return vote_html(operation[1]);
+  if(operation[0]=='account_create_with_delegation')   return account_create_with_delegation_html(operation[1]);
+  if(operation[0]=='delegate_vesting_shares')          return delegate_vesting_shares_html(operation[1]);
+  if(operation[0]=='claim_reward_balance')             return claim_reward_balance_html(operation[1]);
+  if(operation[0]=='transfer')                         return transfer_html(operation[1]);
+  if(operation[0]=='curation_reward')                  return curation_reward_html(operation[1]);
+  if(operation[0]=='producer_reward')                  return producer_reward_html(operation[1]);
+  if(operation[0]=='comment')                          return comment_html(operation[1]);
+  if(operation[0]=='delete_comment')                   return delete_comment_html(operation[1]);
+  if(operation[0]=='author_reward')                    return author_reward_html(operation[1]);
+  if(operation[0]=='comment_benefactor_reward')        return comment_benefactor_reward_html(operation[1]);
+  if(operation[0]=='withdraw_vesting')                 return withdraw_vesting_html(operation[1]);
+  if(operation[0]=='transfer_to_vesting')              return transfer_to_vesting_html(operation[1]);
+  if(operation[0]=='feed_publish')                     return feed_publish_html(operation[1]);
+  if(operation[0]=='account_witness_vote')             return account_witness_vote_html(operation[1]);
+  if(operation[0]=='custom_json')                      return custom_json_html(operation[1]);
+    
+  return 'UNSUPPORTED operation: ' + operation[0] + ', please report to @yuxi';
+}
+
 // Update page
 async function updateui() {
 	let pattern = /@[^\/]*/;
