@@ -69,6 +69,7 @@ function operation_html(operation) {
 
   // witness
   if(operation[0]=='feed_publish')                     return feed_publish_html(operation[1]);
+  if(operation[0]=='account_witness_vote')             return account_witness_vote_html(operation[1]);
   
   
   // comments
@@ -87,7 +88,6 @@ function operation_html(operation) {
   if(operation[0]=='delegate_vesting_shares')          return delegate_vesting_shares_html(operation[1]);
  
   
-  if(operation[0]=='feed_publish')                     return feed_publish_html(operation[1]);
   if(operation[0]=='account_witness_vote')             return account_witness_vote_html(operation[1]);
   if(operation[0]=='custom_json')                      return custom_json_html(operation[1]);
   */  
@@ -154,6 +154,15 @@ function comment_benefactor_reward_html(c) {
 function feed_publish_html(f) {
   return f['publisher'] + ' feed price: ' + f['exchange_rate']['base'];
 }
+
+/*
+ * vote for witness
+ */
+function account_witness_vote_html(a) {
+  let approve = a['approve']==true?' approved ':' unapproved ';
+
+  return a['account'] + approve + a['witness'] + ' as witness';
+} 
 
 /*
  * posts and comments
