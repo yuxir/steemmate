@@ -5,22 +5,23 @@
  */
 function operation_icons(operation) {
 	// votes
-	if(operation=='upvote')                         return '<i class="fa fa-thumbs-up"   style="color:green;"></i>';
-	if(operation=='downvote')                       return '<i class="fa fa-thumbs-down" style="color:black;"></i>';
+	if(operation=='upvote')                         return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/thumbs-up.png")+'"/>';
+	if(operation=='downvote')                       return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/thumbs-down.png")+'"/>';
+    if(operation=='unvote')                         return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/cross.png")+'"/>';
 	
 	// witness
 	if(operation=='account_witness_vote')           return '<i class="fa fa-check"   style="color:green;"></i>';
 	if(operation=='feed_publish')                   return '<i class="fa fa-usd"></i>';
 	
 	// rewards
-	if(operation=='author_reward')                  return '<i class="fa fa-usd"></i>';
-	if(operation=='curation_reward')                return '<i class="fa fa-usd"></i>';
-	if(operation=='producer_reward')                return '<i class="fa fa-usd"></i>';
-	if(operation=='comment_benefactor_reward')      return '<i class="fa fa-usd"></i>';
-	if(operation=='claim_reward_balance')           return '<i class="fa fa-usd"></i>';
+	if(operation=='author_reward')                  return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/dollar.png")+'"/>';
+	if(operation=='curation_reward')                return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/dollar.png")+'"/>';
+	if(operation=='producer_reward')                return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/dollar.png")+'"/>';
+	if(operation=='comment_benefactor_reward')      return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/dollar.png")+'"/>';
+	if(operation=='claim_reward_balance')           return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/dollar.png")+'"/>';
 	
 	// transfers
-	if(operation=='transfer')                       return '<i class="fa fa-exchange"></i>';
+	if(operation=='transfer')                       return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/transfer.png")+'"/>';
 	if(operation=='transfer_to_vesting')            return '<i class="fa fa-arrow-up"></i>';
 	
 	// delegates
@@ -30,7 +31,8 @@ function operation_icons(operation) {
 	if(operation=='account_create_with_delegation') return '<i class="fa fa-user"></i>';
 	
 	// comments
-	if(operation=='comment')                        return '<i class="fa fa-file"></i>';
+	if(operation=='post')                           return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/post.png")+'"/>';
+    if(operation=='comment')                        return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/comment.png")+'"/>';
 	if(operation=='delete_comment')                 return '<i class="fa fa-trash"></i>';
 	if(operation=='reblog')                         return '<i class="fa fa-retweet"></i>';
 	
@@ -105,46 +107,46 @@ function vote_html(v) {
   let oper = 'upvote';
   
   if(weight<0) {
-    oper = 'downvoted';
+    oper = 'downvote';
   }else if(weight==0) {
-    oper = 'un-voted';
+    oper = 'unvote';
   }
 
   let w = weight==0? '':'[' + weight / 100 + '%]';
   
-  return voter + ' ' + oper + ' ' + author + ' ' + w + ' @' + author + '/' + permlink ;
+  return operation_icons(oper) + ' ' + voter + ' ' + oper + ' ' + author + ' ' + w + ' @' + author + '/' + permlink ;
 }
 
 /*
  * generate html for claiming account balance operations
  */
 function claim_reward_balance_html(c) {
-  return c['account'] + ' claiming ' + c['reward_steem'] + ', ' + c['reward_sbd'] + ', ' + c['reward_vests'];
+  return operation_icons('claim_reward_balance') + ' ' + c['account'] + ' claiming ' + c['reward_steem'] + ', ' + c['reward_sbd'] + ', ' + c['reward_vests'];
 }
 
 /*
  * curation rewards
  */
 function curation_reward_html(c) {
-  return 'Curation reward: ' + c['reward'] + ' for @' +c['comment_author'] + '/' + c['comment_permlink']; 
+  return operation_icons('curation_reward') + ' ' + 'Curation reward: ' + c['reward'] + ' for @' +c['comment_author'] + '/' + c['comment_permlink']; 
 }
 
 /*
  * author's rewards
  */
 function author_reward_html(a) {
-  return a['author'] + '\' author reward for ' + a['permlink'] + ': ' + a['sbd_payout'] + ', ' + a['steem_payout'] + ', ' + a['vesting_payout'];
+  return operation_icons('author_reward') + ' ' + a['author'] + '\' author reward for ' + a['permlink'] + ': ' + a['sbd_payout'] + ', ' + a['steem_payout'] + ', ' + a['vesting_payout'];
 }
 
 /*
  * producer's rewards
  */
 function producer_reward_html(p) {
-  return 'Producer reward: ' + p['vesting_shares'];
+  return operation_icons('producer_reward') + ' ' + 'Producer reward: ' + p['vesting_shares'];
 }
 
 function comment_benefactor_reward_html(c) {
-  return c['benefactor'] + "'s benefactor reward: " + c['reward'] + ' for @' + c['author'] + '/' + c['permlink'];
+  return operation_icons('comment_benefactor_reward') + ' ' + c['benefactor'] + "'s benefactor reward: " + c['reward'] + ' for @' + c['author'] + '/' + c['permlink'];
 }
 
 /*
@@ -168,9 +170,9 @@ function account_witness_vote_html(a) {
  */
 function comment_html(c) {
   if(c['title']=='') {
-    return c['author'] + ' left a comment ' + '@' + c['author'] + '/' + c['permlink'] + ' -> ' + truncate_string(c['body'].trim());
+    return operation_icons('comment') + ' ' + c['author'] + ' left a comment ' + '@' + c['author'] + '/' + c['permlink'] + ' -> ' + truncate_string(c['body'].trim());
   }else{
-    return c['author'] + ' published a post: ' +  truncate_string(c['title'].trim());
+    return operation_icons('post') + ' ' + c['author'] + ' published a post: ' +  truncate_string(c['title'].trim());
   }
 }
 
@@ -186,7 +188,7 @@ function delete_comment_html(d) {
  * transfer
  */
 function transfer_html(t) {
-  return t['from'] + ' transferred ' + t['amount'] + ' to ' + t['to'] + '. Memo: ' + t['memo'];
+  return operation_icons('transfer') + ' ' + t['from'] + ' transferred ' + t['amount'] + ' to ' + t['to'] + '. Memo: ' + truncate_string(t['memo']);
 } 
 
 /*

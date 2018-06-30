@@ -6,4 +6,10 @@
     -moz-transition: border linear .2s, box-shadow linear .2s;
     -o-transition: border linear .2s, box-shadow linear .2s;
     transition: border linear .2s, box-shadow linear .2s;
+    background-image: url('../icons/thumbs-up.png');
+}
+
+.operation_icon{
+    width: 20px;
+    height: 20px;
 }
