@@ -233,7 +233,8 @@ function custom_json_html(c) {
 
 // following event
 function custom_json_follow_html(json) {
-  return json['follower'] + ' following ' + json['following'];
+  let what = json['what'].length==0? " unfollow ":" following ";    
+  return json['follower'] + what + json['following'];
 }
 
 // reblog event
