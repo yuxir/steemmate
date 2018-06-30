@@ -82,11 +82,14 @@ function operation_html(operation) {
   if(operation[0]=='withdraw_vesting')                 return withdraw_vesting_html(operation[1]);
   
   // delegation
+  if(operation[0]=='delegate_vesting_shares')          return delegate_vesting_shares_html(operation[1]);
+  
+  // account creation with delegation
   if(operation[0]=='account_create_with_delegation')   return account_create_with_delegation_html(operation[1]);
   
   
   /*
-  if(operation[0]=='delegate_vesting_shares')          return delegate_vesting_shares_html(operation[1]);
+  
  
   
   if(operation[0]=='custom_json')                      return custom_json_html(operation[1]);
@@ -205,12 +208,19 @@ function withdraw_vesting_html(w) {
 }
 
 /*
+ * SP delegation 
+ */
+function delegate_vesting_shares_html(d) {
+  return d['delegator'] + ' delegates ' + d['vesting_shares'] + ' to ' + d['delegatee'];
+} 
+ 
+
+/*
  * account creation
  */
 function account_create_with_delegation_html(a) {
   return a['creator'] + ' created account ' + a['new_account_name'] + ' with fee ' + a['fee'];
 }
- 
 
 /* 
  * truncate string if it's too long
