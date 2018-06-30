@@ -87,13 +87,9 @@ function operation_html(operation) {
   // account creation with delegation
   if(operation[0]=='account_create_with_delegation')   return account_create_with_delegation_html(operation[1]);
   
-  
-  /*
-  
- 
-  
+  // custom_json
   if(operation[0]=='custom_json')                      return custom_json_html(operation[1]);
-  */  
+    
   return 'UNSUPPORTED operation: ' + operation[0] + ', please report to @yuxi';
 }
 
@@ -220,6 +216,29 @@ function delegate_vesting_shares_html(d) {
  */
 function account_create_with_delegation_html(a) {
   return a['creator'] + ' created account ' + a['new_account_name'] + ' with fee ' + a['fee'];
+}
+
+// Process custom json events
+function custom_json_html(c) {
+  let j = JSON.parse(c['json']);
+  let operation_id = j[0];
+  if(operation_id=='follow') {
+    return custom_json_follow_html(j[1]);
+  }else if(operation_id=='reblog'){
+    return custom_json_reblog(j[1]);
+  }else{
+    return 'UNIMPLEMENTED custom_json operation' + operation_id + ' ' + operation_id + ', please report to @yuxi';
+  }
+}
+
+// following event
+function custom_json_follow_html(json) {
+  return json['follower'] + ' following ' + json['following'];
+}
+
+// reblog event
+function custom_json_reblog(c) {
+  return c['account'] + ' reblogged @' + c['author'] + '/' + c['permlink'];
 }
 
 /* 
