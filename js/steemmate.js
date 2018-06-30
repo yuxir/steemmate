@@ -59,6 +59,7 @@ async function find_last_record(user, numbers) {
 // based on operation, construct html output
 function operation_html(operation) {
   if(operation[0]=='vote')                             return vote_html(operation[1]);
+  /*
   if(operation[0]=='account_create_with_delegation')   return account_create_with_delegation_html(operation[1]);
   if(operation[0]=='delegate_vesting_shares')          return delegate_vesting_shares_html(operation[1]);
   if(operation[0]=='claim_reward_balance')             return claim_reward_balance_html(operation[1]);
@@ -74,8 +75,30 @@ function operation_html(operation) {
   if(operation[0]=='feed_publish')                     return feed_publish_html(operation[1]);
   if(operation[0]=='account_witness_vote')             return account_witness_vote_html(operation[1]);
   if(operation[0]=='custom_json')                      return custom_json_html(operation[1]);
-    
+  */  
   return 'UNSUPPORTED operation: ' + operation[0] + ', please report to @yuxi';
+}
+
+/*
+ * generate html for vote operations
+ */
+function vote_html(v) {
+  let voter    = v['voter'];
+  let author   = v['author'];
+  let permlink = v['permlink'];
+  let weight   = v['weight'];
+
+  let oper = 'upvote';
+  
+  if(weight<0) {
+    oper = 'downvoted';
+  }else if(weight==0) {
+    oper = 'un-voted';
+  }
+
+  let w = weight==0? '':'[' + weight / 100 + '%]';
+  
+  return voter + ' ' + oper + ' ' + author + ' ' + w + ' @' + author + '/' + permlink ;
 }
 
 // Update page
@@ -89,8 +112,8 @@ async function updateui() {
     	let numbers = 100;  // use a fixed number for now, will be configurable later
 		
 		// get numbers of records from user account history
-	    let result  = await find_last_record(username, numbers);
-		let html    = '<div style="padding-top:1em; float:left; width:30%"><h4>Steem mate ['+username+']</h4></div>';
+	    let result  = await find_last_record(username.substring(1,username.length), numbers);
+        let html    = '<div style="padding-top:1em; float:left; width:30%"><h4>Steem mate ['+username+']</h4>';
 
 		// construct html output
         for(let r in result.reverse()) {
@@ -104,6 +127,7 @@ async function updateui() {
 
             html = html + '<p>' + timestamp + ' ' + operation_html(op) + '</p>';
         }
+        html = html + '</div>';
 
 		// Add a div to show the additional info
         $( '#content div div.App__content div.UserProfile div div.row:eq(1)' ).prepend( html );
