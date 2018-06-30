@@ -70,6 +70,8 @@ function operation_html(operation) {
   
   // comments
   if(operation[0]=='comment')                          return comment_html(operation[1]);
+  if(operation[0]=='delete_comment')                   return delete_comment_html(operation[1]);
+  
     
   /*
   if(operation[0]=='account_create_with_delegation')   return account_create_with_delegation_html(operation[1]);
@@ -77,7 +79,6 @@ function operation_html(operation) {
   if(operation[0]=='transfer')                         return transfer_html(operation[1]);
   
   
-  if(operation[0]=='delete_comment')                   return delete_comment_html(operation[1]);
   if(operation[0]=='withdraw_vesting')                 return withdraw_vesting_html(operation[1]);
   if(operation[0]=='transfer_to_vesting')              return transfer_to_vesting_html(operation[1]);
   if(operation[0]=='feed_publish')                     return feed_publish_html(operation[1]);
@@ -150,6 +151,13 @@ function comment_html(c) {
   }else{
     return c['author'] + ' published a post: ' +  truncate_string(c['title'].trim());
   }
+}
+
+/* 
+ * delete a comment
+ */
+function delete_comment_html(d) {
+  return d['author'] + ' deleted a comment: @' + d['author'] + '/' + d['permlink'];
 }
 
 /* 
