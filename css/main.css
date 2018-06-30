@@ -1,0 +1,9 @@
+.operation_border{
+    border-radius: .2em;
+    border: 1px solid #cccccc;
+
+    -webkit-transition: border linear .2s, box-shadow linear .2s;
+    -moz-transition: border linear .2s, box-shadow linear .2s;
+    -o-transition: border linear .2s, box-shadow linear .2s;
+    transition: border linear .2s, box-shadow linear .2s;
+}

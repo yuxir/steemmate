@@ -274,7 +274,7 @@ async function updateui() {
             let timestamp      = result[r][1]['timestamp'];
             let op             = result[r][1]['op'];
 
-            html = html + '<p>' + timestamp + ' ' + operation_html(op) + '</p>';
+            html = html + '<p class="operation_border">' + timestamp + ' ' + operation_html(op) + '</p>';
         }
         html = html + '</div>';
 

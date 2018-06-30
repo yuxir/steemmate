@@ -25,6 +25,9 @@
   	    "vendor/jquery-3.2.1.min.js",
         "vendor/steem.min.js",
         "js/steemmate.js"   
+      ],
+      "css":[
+        "css/main.css"
       ]
   }],
   "permissions": [
