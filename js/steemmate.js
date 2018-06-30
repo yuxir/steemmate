@@ -66,6 +66,9 @@ function operation_html(operation) {
   if(operation[0]=='author_reward')                    return author_reward_html(operation[1]);
   if(operation[0]=='producer_reward')                  return producer_reward_html(operation[1]);
   if(operation[0]=='comment_benefactor_reward')        return comment_benefactor_reward_html(operation[1]);
+
+  // witness
+  if(operation[0]=='feed_publish')                     return feed_publish_html(operation[1]);
   
   
   // comments
@@ -82,9 +85,7 @@ function operation_html(operation) {
   /*
   if(operation[0]=='account_create_with_delegation')   return account_create_with_delegation_html(operation[1]);
   if(operation[0]=='delegate_vesting_shares')          return delegate_vesting_shares_html(operation[1]);
-  
-  
-  
+ 
   
   if(operation[0]=='feed_publish')                     return feed_publish_html(operation[1]);
   if(operation[0]=='account_witness_vote')             return account_witness_vote_html(operation[1]);
@@ -145,6 +146,13 @@ function producer_reward_html(p) {
 
 function comment_benefactor_reward_html(c) {
   return c['benefactor'] + "'s benefactor reward: " + c['reward'] + ' for @' + c['author'] + '/' + c['permlink'];
+}
+
+/*
+ * feed price
+ */
+function feed_publish_html(f) {
+  return f['publisher'] + ' feed price: ' + f['exchange_rate']['base'];
 }
 
 /*
