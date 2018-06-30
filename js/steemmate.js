@@ -72,11 +72,15 @@ function operation_html(operation) {
   if(operation[0]=='comment')                          return comment_html(operation[1]);
   if(operation[0]=='delete_comment')                   return delete_comment_html(operation[1]);
   
-    
+
+  // transfers
+  if(operation[0]=='transfer')                         return transfer_html(operation[1]);  
+
+  
   /*
   if(operation[0]=='account_create_with_delegation')   return account_create_with_delegation_html(operation[1]);
   if(operation[0]=='delegate_vesting_shares')          return delegate_vesting_shares_html(operation[1]);
-  if(operation[0]=='transfer')                         return transfer_html(operation[1]);
+  
   
   
   if(operation[0]=='withdraw_vesting')                 return withdraw_vesting_html(operation[1]);
@@ -159,6 +163,14 @@ function comment_html(c) {
 function delete_comment_html(d) {
   return d['author'] + ' deleted a comment: @' + d['author'] + '/' + d['permlink'];
 }
+
+
+/*
+ * transfer
+ */
+function transfer_html(t) {
+  return t['from'] + ' transferred ' + t['amount'] + ' to ' + t['to'] + '. Memo: ' + t['memo'];
+} 
 
 /* 
  * truncate string if it's too long
