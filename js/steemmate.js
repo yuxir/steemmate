@@ -60,17 +60,21 @@ async function find_last_record(user, numbers) {
 function operation_html(operation) {
   if(operation[0]=='vote')                             return vote_html(operation[1]);
 
+  // rewards
   if(operation[0]=='claim_reward_balance')             return claim_reward_balance_html(operation[1]);
   if(operation[0]=='curation_reward')                  return curation_reward_html(operation[1]);
   if(operation[0]=='author_reward')                    return author_reward_html(operation[1]);
+  if(operation[0]=='producer_reward')                  return producer_reward_html(operation[1]);
   
+  // comments
+  if(operation[0]=='comment')                          return comment_html(operation[1]);
     
   /*
   if(operation[0]=='account_create_with_delegation')   return account_create_with_delegation_html(operation[1]);
   if(operation[0]=='delegate_vesting_shares')          return delegate_vesting_shares_html(operation[1]);
   if(operation[0]=='transfer')                         return transfer_html(operation[1]);
-  if(operation[0]=='producer_reward')                  return producer_reward_html(operation[1]);
-  if(operation[0]=='comment')                          return comment_html(operation[1]);
+  
+  
   if(operation[0]=='delete_comment')                   return delete_comment_html(operation[1]);
   if(operation[0]=='comment_benefactor_reward')        return comment_benefactor_reward_html(operation[1]);
   if(operation[0]=='withdraw_vesting')                 return withdraw_vesting_html(operation[1]);
@@ -111,12 +115,44 @@ function claim_reward_balance_html(c) {
   return c['account'] + ' claiming ' + c['reward_steem'] + ', ' + c['reward_sbd'] + ', ' + c['reward_vests'];
 }
 
+/*
+ * curation rewards
+ */
 function curation_reward_html(c) {
   return 'Curation reward: ' + c['reward'] + ' for @' +c['comment_author'] + '/' + c['comment_permlink']; 
 }
 
+/*
+ * author's rewards
+ */
 function author_reward_html(a) {
   return a['author'] + '\' author reward for ' + a['permlink'] + ': ' + a['sbd_payout'] + ', ' + a['steem_payout'] + ', ' + a['vesting_payout'];
+}
+
+/*
+ * producer's rewards
+ */
+function producer_reward_html(p) {
+  return 'Producer reward: ' + p['vesting_shares'];
+}
+
+/*
+ * posts and comments
+ */
+function comment_html(c) {
+  if(c['title']=='') {
+    return c['author'] + ' left a comment ' + '@' + c['author'] + '/' + c['permlink'] + ' -> ' + truncate_string(c['body'].trim());
+  }else{
+    return c['author'] + ' published a post: ' +  truncate_string(c['title'].trim());
+  }
+}
+
+/* 
+ * truncate string if it's too long
+ */
+function truncate_string(s) {
+  let string_length = 40;
+  return (s.length > string_length) ? s.substr(0,string_length-1) + '...' : s;
 }
 
 // Update page
