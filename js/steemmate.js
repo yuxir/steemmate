@@ -59,12 +59,12 @@ async function find_last_record(user, numbers) {
 // based on operation, construct html output
 function operation_html(operation) {
   if(operation[0]=='vote')                             return vote_html(operation[1]);
+  if(operation[0]=='claim_reward_balance')             return claim_reward_balance_html(operation[1]);
+    
   /*
   if(operation[0]=='account_create_with_delegation')   return account_create_with_delegation_html(operation[1]);
   if(operation[0]=='delegate_vesting_shares')          return delegate_vesting_shares_html(operation[1]);
-  if(operation[0]=='claim_reward_balance')             return claim_reward_balance_html(operation[1]);
   if(operation[0]=='transfer')                         return transfer_html(operation[1]);
-  if(operation[0]=='curation_reward')                  return curation_reward_html(operation[1]);
   if(operation[0]=='producer_reward')                  return producer_reward_html(operation[1]);
   if(operation[0]=='comment')                          return comment_html(operation[1]);
   if(operation[0]=='delete_comment')                   return delete_comment_html(operation[1]);
@@ -99,6 +99,13 @@ function vote_html(v) {
   let w = weight==0? '':'[' + weight / 100 + '%]';
   
   return voter + ' ' + oper + ' ' + author + ' ' + w + ' @' + author + '/' + permlink ;
+}
+
+/*
+ * generate html for claiming account balance operations
+ */
+function claim_reward_balance_html(c) {
+  return c['account'] + ' claiming ' + c['reward_steem'] + ', ' + c['reward_sbd'] + ', ' + c['reward_vests'];
 }
 
 // Update page
