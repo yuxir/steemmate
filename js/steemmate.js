@@ -59,7 +59,11 @@ async function find_last_record(user, numbers) {
 // based on operation, construct html output
 function operation_html(operation) {
   if(operation[0]=='vote')                             return vote_html(operation[1]);
+
   if(operation[0]=='claim_reward_balance')             return claim_reward_balance_html(operation[1]);
+  if(operation[0]=='curation_reward')                  return curation_reward_html(operation[1]);
+  if(operation[0]=='author_reward')                    return author_reward_html(operation[1]);
+  
     
   /*
   if(operation[0]=='account_create_with_delegation')   return account_create_with_delegation_html(operation[1]);
@@ -68,7 +72,6 @@ function operation_html(operation) {
   if(operation[0]=='producer_reward')                  return producer_reward_html(operation[1]);
   if(operation[0]=='comment')                          return comment_html(operation[1]);
   if(operation[0]=='delete_comment')                   return delete_comment_html(operation[1]);
-  if(operation[0]=='author_reward')                    return author_reward_html(operation[1]);
   if(operation[0]=='comment_benefactor_reward')        return comment_benefactor_reward_html(operation[1]);
   if(operation[0]=='withdraw_vesting')                 return withdraw_vesting_html(operation[1]);
   if(operation[0]=='transfer_to_vesting')              return transfer_to_vesting_html(operation[1]);
@@ -106,6 +109,14 @@ function vote_html(v) {
  */
 function claim_reward_balance_html(c) {
   return c['account'] + ' claiming ' + c['reward_steem'] + ', ' + c['reward_sbd'] + ', ' + c['reward_vests'];
+}
+
+function curation_reward_html(c) {
+  return 'Curation reward: ' + c['reward'] + ' for @' +c['comment_author'] + '/' + c['comment_permlink']; 
+}
+
+function author_reward_html(a) {
+  return a['author'] + '\' author reward for ' + a['permlink'] + ': ' + a['sbd_payout'] + ', ' + a['steem_payout'] + ', ' + a['vesting_payout'];
 }
 
 // Update page
