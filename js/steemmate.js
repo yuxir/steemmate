@@ -10,8 +10,9 @@ function operation_icons(operation) {
     if(operation=='unvote')                         return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/cross.png")+'"/>';
 	
 	// witness
-	if(operation=='account_witness_vote')           return '<i class="fa fa-check"   style="color:green;"></i>';
-	if(operation=='feed_publish')                   return '<i class="fa fa-usd"></i>';
+	if(operation=='account_witness_approve')        return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/tick.png")+'"/>';
+    if(operation=='account_witness_unapprove')      return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/cross2.png")+'"/>';
+	if(operation=='feed_publish')                   return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/feed-price.png")+'"/>';
 	
 	// rewards
 	if(operation=='author_reward')                  return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/dollar.png")+'"/>';
@@ -153,7 +154,7 @@ function comment_benefactor_reward_html(c) {
  * feed price
  */
 function feed_publish_html(f) {
-  return f['publisher'] + ' feed price: ' + f['exchange_rate']['base'];
+  return operation_icons('feed_publish') + ' ' + f['publisher'] + ' feed price: ' + f['exchange_rate']['base'];
 }
 
 /*
@@ -161,8 +162,9 @@ function feed_publish_html(f) {
  */
 function account_witness_vote_html(a) {
   let approve = a['approve']==true?' approved ':' unapproved ';
+  let icon    = a['approve']==true?operation_icons('account_witness_approve') + ' ':operation_icons('account_witness_unapprove') + ' ';
 
-  return a['account'] + approve + a['witness'] + ' as witness';
+  return icon + a['account'] + approve + a['witness'] + ' as witness';
 } 
 
 /*
