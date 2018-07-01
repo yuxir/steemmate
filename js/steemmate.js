@@ -61,6 +61,7 @@ async function find_last_record(user, numbers) {
 
 // based on operation, construct html output
 function operation_html(operation) {
+  // upvotes, downvotes, unvotes  
   if(operation[0]=='vote')                             return vote_html(operation[1]);
 
   // rewards
@@ -146,6 +147,9 @@ function producer_reward_html(p) {
   return operation_icons('producer_reward') + ' ' + 'Producer reward: ' + p['vesting_shares'];
 }
 
+/*
+ * post benefactor's rewards
+ */
 function comment_benefactor_reward_html(c) {
   return operation_icons('comment_benefactor_reward') + ' ' + c['benefactor'] + "'s benefactor reward: " + c['reward'] + ' for @' + c['author'] + '/' + c['permlink'];
 }
@@ -257,7 +261,7 @@ function truncate_string(s) {
 
 // Update page
 async function updateui() {
-	let pattern = /@[^\/]*/;
+	let pattern = /@[^\/]*/;  // RegExp to get user from Steemit URL
 	let username_array = window.location.href.match(pattern);
 	
 	if(username_array) {
