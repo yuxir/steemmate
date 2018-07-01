@@ -37,8 +37,8 @@ function operation_icons(operation) {
 	if(operation=='reblog')                         return '<i class="fa fa-retweet"></i>';
 	
 	// follow
-	if(operation=='follow')                         return '<i class="fa fa-user-plus"></i>';
-	if(operation=='unfollow')                       return '<i class="fa fa-user-minus"></i>';
+	if(operation=='follow')                         return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/follow.png")+'"/>';
+	if(operation=='unfollow')                       return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/unfollow.png")+'"/>';
 	
     return '';
 }
@@ -236,7 +236,8 @@ function custom_json_html(c) {
 // following event
 function custom_json_follow_html(json) {
   let what = json['what'].length==0? " unfollow ":" following ";    
-  return json['follower'] + what + json['following'];
+  let icon = json['what'].length==0? operation_icons('unfollow') + ' ':operation_icons('follow') + ' ';
+  return icon + json['follower'] + what + json['following'];
 }
 
 // reblog event
