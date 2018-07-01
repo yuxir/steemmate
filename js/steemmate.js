@@ -1,7 +1,7 @@
 'use strict';
 
 /*
- * define fontawesome icons for different operations
+ * define icons for different operations
  */
 function operation_icons(operation) {
 	// votes
@@ -23,19 +23,19 @@ function operation_icons(operation) {
 	
 	// transfers
 	if(operation=='transfer')                       return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/transfer.png")+'"/>';
-	if(operation=='transfer_to_vesting')            return '<i class="fa fa-arrow-up"></i>';
+	if(operation=='transfer_to_vesting')            return '';
 	
 	// delegates
-	if(operation=='delegate_vesting_shares')        return '<i class="fa fa-users"></i>';
+	if(operation=='delegate_vesting_shares')        return '';
 	
 	// account operations
-	if(operation=='account_create_with_delegation') return '<i class="fa fa-user"></i>';
+	if(operation=='account_create_with_delegation') return '';
 	
 	// comments
 	if(operation=='post')                           return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/post.png")+'"/>';
     if(operation=='comment')                        return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/comment.png")+'"/>';
-	if(operation=='delete_comment')                 return '<i class="fa fa-trash"></i>';
-	if(operation=='reblog')                         return '<i class="fa fa-retweet"></i>';
+	if(operation=='delete_comment')                 return '';
+	if(operation=='reblog')                         return '';
 	
 	// follow
 	if(operation=='follow')                         return '<img class="operation_icon" src="'+chrome.extension.getURL("icons/follow.png")+'"/>';
