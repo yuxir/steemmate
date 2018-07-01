@@ -20,7 +20,7 @@
         "webfonts/*"
   ],
   "content_scripts": [{
-      "matches": ["<all_urls>"],
+      "matches": ["https://steemit.com/*"],
       "js":[
   	    "vendor/jquery-3.2.1.min.js",
         "vendor/steem.min.js",
